@@ -1,6 +1,7 @@
 ---
-title: "Week2Project"
-author: "CMK"
+title: "Languages in Africa"
+subtitle: "Week 2 Project"
+author: "C.Kalinowski"
 date: "2/16/2021"
 output: html_document
 ---
@@ -10,14 +11,23 @@ knitr::opts_chunk$set(echo = FALSE)
 library(leaflet)
 ```
 
-## R Markdown
+
+This is a map showing the central location of 135 African languages. The popup text indicates the language name, ISO code, and genus. 
 
 
-```{r}
-data<-read.csv("./languages.csv")
-head(data)
+```{r, echo=FALSE}
+data<-read.csv("../languages.csv")
+names(data)[2:3]<-c("lng","lat")
 
 ```
 
 
-now we need a map
+
+```{r, echo=FALSE,message=FALSE}
+data %>% 
+      leaflet() %>%
+      addTiles() %>%
+      addCircleMarkers(color=data$color,popup=(paste(data$name," [",data$code, "] (",data$genus,")",sep="")),weight=1,fillOpacity=0.75) %>%
+      addLegend(title="Language Family", labels=c("Afro-Asiatic","Khoisan","Niger-Congo","Nilo-Sarahan"),colors=c("red","green","blue","yellow"))
+
+```
