@@ -1,0 +1,40 @@
+---
+title: "Languages in Africa"
+subtitle: "Week 3 Project"
+author: "C. Kalinowski"
+date: "2/17/2021"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(plotly)
+```
+
+
+```{r, echo=FALSE}
+data<-read.csv("../languages.csv")
+data<-data[complete.cases(data),]
+
+
+
+
+
+```
+
+## Native Speakers
+
+```{r}
+x <- list(
+  title = "Language Family"
+  
+)
+y<-list(
+      title= "Number of Speakers",
+      range = c(0,1000000)
+)
+p<-plot_ly(data,y=~meanpop,color=~factor(family),type="box")
+p<-p %>% layout(xaxis=x,yaxis=y)
+p
+```
+
