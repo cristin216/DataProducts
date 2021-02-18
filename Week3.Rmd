@@ -9,6 +9,8 @@ output: ioslides_presentation
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(plotly)
+library(leaflet)
+library(tinytex)
 ```
 
 
@@ -16,13 +18,17 @@ library(plotly)
 data<-read.csv("../languages.csv")
 data<-data[complete.cases(data),]
 
-
-
-
-
 ```
 
-## Native Speakers
+## African Languages
+
+There are more than 2000 languages spoken in Africa. These languages are often broken up into families or groups, including Afro-Asiatic, Niger-Congo, Nilo-Saharan, and Khoisan.
+
+The data set used for this project includes information on 135 languages, and includes the language name and iso code, the family and genus names, the latitude and longitude of the geographical center of where the language is spoken, and the number of native speakers.
+
+## Number of Speakers
+
+This plot uses the number of speakers and the family name of each language to show the distribution of populations in each family. 
 
 ```{r}
 x <- list(
@@ -38,3 +44,20 @@ p<-p %>% layout(xaxis=x,yaxis=y)
 p
 ```
 
+## Language Map
+
+This map shows the location of each language in the database, with hover text indicating the language name, iso code, and genus.
+
+```{r, echo=FALSE,message=FALSE}
+data %>% 
+      leaflet() %>%
+      addTiles() %>%
+      addCircleMarkers(color=data$color,popup=(paste(data$name," [",data$code, "] (",data$genus,")",sep="")),weight=1,fillOpacity=0.75) %>%
+      addLegend(title="Language Family", labels=c("Afro-Asiatic","Khoisan","Niger-Congo","Nilo-Sarahan"),colors=c("red","green","blue","yellow"))
+
+```
+
+
+## References
+
+Kalinowski, C. 2015. *A Typology of Morphosyntactic Encoding of Focus in African Languages*: State University of New York at Buffalo dissertation. 
