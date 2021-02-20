@@ -1,0 +1,12 @@
+name: RefugeePopulation
+title: RefugeePopulation
+username:
+account: cmkalinowski
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3668211
+bundleId: 4247260
+url: https://cmkalinowski.shinyapps.io/RefugeePopulation/
+when: 1613786908.37536
+asMultiple: FALSE
+asStatic: FALSE
