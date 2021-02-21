@@ -2,9 +2,11 @@
 title: "Refugee Arrivals to the US"
 author: "C. Kalinowski"
 date: "2/20/2021"
-output: ioslides_presentation
-css: styles.css
-runtime: shiny
+output: 
+  ioslides_presentation: 
+    css: styles.css
+    keep_md: yes
+#runtime: shiny
 ---
 
 ```{r setup, include=FALSE}
@@ -28,25 +30,18 @@ appdata<-read.csv("./RefugeePopulation/datamelt.csv")
 
 ```
 
-
-
-
-## <span style= "color: #243569;"> Refugees in the United States </span>
+## [ Refugees in the United States ]{style="color: #243569;"}
 
 The United States has always been a country of immigrants and refugees.
 
+-   How many refugees do we have?
+-   Where are they coming from?
 
-- How many refugees do we have?
-- Where are they coming from?
+With the amount of data publicly available it is possible to see the current trends in refugee arrivals.
 
+## [ The Data]{style="color: #243569;"}
 
-With the amount of data publicly available it is possible to see the current trends in 
-refugee arrivals.
-
-## <span style= "color: #243569;"> The Data</span>
-
-The Department of Homeland Security publishes a report every
-10 years showing how many refugees have arrived from each country per year.
+The Department of Homeland Security publishes a report every 10 years showing how many refugees have arrived from each country per year.
 
 ```{r, echo=FALSE,comment=NA}
 library(xlsx)
@@ -62,8 +57,7 @@ data[data=="X"]<-NA
 head(data)
 ```
 
-
-This data can be found at https://www.dhs.gov/immigration-statistics/yearbook
+This data can be found at <https://www.dhs.gov/immigration-statistics/yearbook>
 
 ## 
 
@@ -73,7 +67,7 @@ Check the countries you want to see from the list...
 
 ![](Checklist.png)
 
-## <span style= "color: #243569;"> The App</span>
+## [ The App]{style="color: #243569;"}
 
 ...and see the trends for yourself!
 
@@ -87,7 +81,3 @@ plot_ly(appdata, x = ~Year, y = ~Number)  %>%
 
 
 ```
-
-
-
-
