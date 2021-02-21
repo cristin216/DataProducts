@@ -1,8 +1,8 @@
 slides>slide.title-slide {
-    border-color: #243569;  
-    background-image: url('world.png');
-    background-repeat: no-repeat;
-    background-size: 100%;
+  border-color: #243569;  
+  background-image: url('world.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
 }
 
 slide.title-slide p {
@@ -11,5 +11,4 @@ slide.title-slide p {
 
 slide.title-slide h1 {
   color: #243569;
-  
 }
