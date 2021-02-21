@@ -2,11 +2,10 @@
 title: "Refugee Arrivals to the US"
 author: "C. Kalinowski"
 date: "2/20/2021"
-output: 
-  ioslides_presentation: 
-    css: styles.css
-    keep_md: yes
-#runtime: shiny
+output:
+      ioslides_presentation:
+      css: styles.css
+      keep_md: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -24,10 +23,6 @@ data[data=="-"]<-NA
 data[data=="X"]<-NA
 
 appdata<-read.csv("./RefugeePopulation/datamelt.csv")
-
-
-
-
 ```
 
 ## [ Refugees in the United States ]{style="color: #243569;"}
@@ -59,7 +54,7 @@ head(data)
 
 This data can be found at <https://www.dhs.gov/immigration-statistics/yearbook>
 
-## 
+##
 
 But who wants to look at tables when you can see colorful plots?
 
@@ -78,6 +73,4 @@ appdata<-subset(data1,Country==c("Burma","Iraq","DRC"))
 plot_ly(appdata, x = ~Year, y = ~Number)  %>%
                  group_by(Country) %>%
                 add_lines(color=~Country)
-
-
 ```
