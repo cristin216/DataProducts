@@ -1,8 +1,9 @@
 ---
-title: "Week4"
-author: "CMK"
-date: "2/18/2021"
+title: "Refugee Arrivals to the US"
+author: "C. Kalinowski"
+date: "2/20/2021"
 output: ioslides_presentation
+css: styles.css
 runtime: shiny
 ---
 
@@ -10,104 +11,83 @@ runtime: shiny
 knitr::opts_chunk$set(echo = FALSE)
 library(xlsx)
 library(reshape2)
-library(ggplot2)
 library(plotly)
-if(!file.exists("2019data.zip")){
-    download.file("https://www.dhs.gov/sites/default/files/publications/immigration-statistics/yearbook/2019/yrbk_2019_         rfa_excel_final.zip", "./2019data.zip")
-    unzip("./2019data.zip")
-}
-download.file("https://www.dhs.gov/sites/default/files/publications/RFA2009.zip", "./2009data.zip")
-unzip("./2009data.zip")
 
-data0<-read.xlsx("./table14d.xls",1)
-data0<-data0[15:79,]
-colnames(data0)<-c("Country",2000:2009)
-data0$Country<-trimws(data0$Country,which="both")
-
-
-data1<-read.xlsx("./fy2019_table14d.xlsx",1)
-data1<-data1[15:73,1:11]
-colnames(data1)<-c("Country",2010:2019)
-data1$Country<-trimws(data1$Country,which="both")
-
-#diff1<-setdiff(data0$Country,data1$Country)
-#na1<-rep(NA,length(diff1))
-#df1<-data.frame(diff1,na1,na1,na1,na1,na1,na1,na1,na1,na1,na1)
-#colnames(df1)<-c("Country",2010:2019)
-#data1<-rbind(data1,df1)
-
-#diff0<-setdiff(data1$Country,data0$Country)
-#na0<-rep(NA,length(diff0))
-#df0<-data.frame(diff0,na0,na0,na0,na0,na0,na0,na0,na0,na0,na0)
-#colnames(df0)<-c("Country",2000:2009)
-#data0<-rbind(data0,df0)
-data<-merge(x=data0,y=data1,by="Country")
-
+data<-read.xlsx("./fy2019_table14d.xlsx",1)
+data<-data[15:73,1:11]
+colnames(data)<-c("Country",2010:2019)
+data$Country<-trimws(data$Country,which="both")
 data[data=="D"]<-NA
 data[data=="-"]<-NA
 data[data=="X"]<-NA
-data[,2:21] <- sapply(data[,2:21],as.integer)
-datamelt<-melt(data,id.vars = "Country",measure.vars = colnames(data[,2:21]))
-colnames(datamelt)<-c("Country","Year","Number")
 
-transdata <- data.frame(t(data[-1]))
-colnames(transdata) <- data[, 1]
-transdata<-cbind(rownames(transdata),transdata)
-colnames(transdata)[1]<-"Year"
+appdata<-read.csv("./RefugeePopulation/datamelt.csv")
 
-```
-
-```{R}
-plot_ly(compmelt, x = ~Year, y = ~value) %>%
-  add_lines(linetype = ~variable)
-
-
-
-submelt<-subset(compmelt,variable==inp)
-plot_ly(submelt, x = ~Year, y = ~value) %>%
-  add_lines(linetype = ~variable)
 
 
 
 ```
 
 
-## Shiny Presentation
 
-This R Markdown presentation is made interactive using Shiny. The viewers of the presentation can change the assumptions underlying what's presented and see the results immediately. 
 
-To learn more, see [Interactive Documents](http://rmarkdown.rstudio.com/authoring_shiny.html).
+## <span style= "color: #243569;"> Refugees in the United States </span>
 
-## Interactive Plot
+The United States has always been a country of immigrants and refugees.
 
-```{r eruptions}
-inputPanel(
-  selectInput("n_breaks", label = "Number of bins:",
-              choices = c(10, 20, 35, 50), selected = 20),
-  
-  sliderInput("bw_adjust", label = "Bandwidth adjustment:",
-              min = 0.2, max = 2, value = 1, step = 0.2)
-)
 
-renderPlot({
-  hist(faithful$eruptions, probability = TRUE, breaks = as.numeric(input$n_breaks),
-       xlab = "Duration (minutes)", main = "Geyser eruption duration")
-  
-  dens <- density(faithful$eruptions, adjust = input$bw_adjust)
-  lines(dens, col = "blue")
-})
+- How many refugees do we have?
+- Where are they coming from?
+
+
+With the amount of data publicly available it is possible to see the current trends in 
+refugee arrivals.
+
+## <span style= "color: #243569;"> The Data</span>
+
+The Department of Homeland Security publishes a report every
+10 years showing how many refugees have arrived from each country per year.
+
+```{r, echo=FALSE,comment=NA}
+library(xlsx)
+library(reshape2)
+data<-read.xlsx("./fy2019_table14d.xlsx",1)
+data<-data[15:73,1:11]
+colnames(data)<-c("Country",2010:2019)
+rownames(data)<-NULL
+data$Country<-trimws(data$Country,which="both")
+data[data=="D"]<-NA
+data[data=="-"]<-NA
+data[data=="X"]<-NA
+head(data)
 ```
 
-## Bullets
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
+This data can be found at https://www.dhs.gov/immigration-statistics/yearbook
 
-## R Output
+## 
 
-```{r cars}
-summary(cars)
+But who wants to look at tables when you can see colorful plots?
+
+Check the countries you want to see from the list...
+
+![](Checklist.png)
+
+## <span style= "color: #243569;"> The App</span>
+
+...and see the trends for yourself!
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+library(plotly)
+data1<-read.csv("./RefugeePopulation/datamelt.csv")
+appdata<-subset(data1,Country==c("Burma","Iraq","DRC"))
+plot_ly(appdata, x = ~Year, y = ~Number)  %>%
+                 group_by(Country) %>%
+                add_lines(color=~Country)
+
+
 ```
+
+
 
 

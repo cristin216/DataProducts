@@ -12,7 +12,12 @@ shinyUI(
             ),
             mainPanel(
                 tabsetPanel(type="tabs",
-                    tabPanel("Plot",plotlyOutput("refugeePlot")),
+                    tabPanel("Plot",
+                             h3("Refugee Arrivals by Year"),
+                             plotlyOutput("refugeePlot"),
+                             h3("Sum of Refugee Arrivals 2000-2019"),
+                             tableOutput("refugeeTable")
+                    ),
                     tabPanel("Documentation",
                         h3("Reference Data"),
                         p("This app provides data on the number of refugee arrivals to the US by country and year,
@@ -20,10 +25,12 @@ shinyUI(
                          Statistics. The countries chosen for inclusion in this app are those which have data provided
                          for every year from 2000 through 2019, found at"),
                          a("https://www.dhs.gov/immigration-statistics/yearbook"),
-                        h3("Using the Plot"),
-                        p("Checking a box in the side panel will display a line in the plot corresponding to the data
-                          for that country. Unchecking a box will clear the country's line. The plot can be seen in
-                          the Plot tab")
+                        h3("Seeing the Data"),
+                        p("In the plot tab, a plot is provided with a line tracking the number
+                        of refugee arrivals per year for every selected country. The total number
+                        of arrivals for selected countries is also displayed in the table under the plot.
+                        To select a country, check the corresponding box in the sidebar. To deselect a
+                        country, uncheck the corresponding box.")
                     )
                 )    
             )
