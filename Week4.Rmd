@@ -32,6 +32,8 @@ appdata<-read.csv("./RefugeePopulation/datamelt.csv")
 
 The United States has always been a country of immigrants and refugees.
 
+Some basic questions we can research are:
+
 -   How many refugees do we have?
 -   Where are they coming from?
 
