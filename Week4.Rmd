@@ -1,12 +1,14 @@
 ---
-title: "Refugee Arrivals to the US"
+title: "Refugee Arrivals to the US" #{data-background=world.png data-background-size=cover}
 author: "C. Kalinowski"
 date: "2/20/2021"
-output:
-  ioslides_presentation: null
-  css: styles.css
-  keep_md: yes
-  slidy_presentation: default
+output: 
+  ioslides_presentation: 
+    css: styles.css
+  #keep_md: yes
+ # slidy_presentation: default
+ 
+ 
 ---
 
 ```{r setup, include=FALSE}
@@ -26,7 +28,7 @@ data[data=="X"]<-NA
 appdata<-read.csv("./RefugeePopulation/datamelt.csv")
 ```
 
-## [ Refugees in the United States ]{style="color: #243569;"}
+## [Refugees in the United States]{style="color: #243569;"}
 
 The United States has always been a country of immigrants and refugees.
 
@@ -35,7 +37,7 @@ The United States has always been a country of immigrants and refugees.
 
 With the amount of data publicly available it is possible to see the current trends in refugee arrivals.
 
-## [ The Data]{style="color: #243569;"}
+## [The Data]{style="color: #243569;"}
 
 The Department of Homeland Security publishes a report every 10 years showing how many refugees have arrived from each country per year.
 
@@ -55,7 +57,7 @@ head(data)
 
 This data can be found at <https://www.dhs.gov/immigration-statistics/yearbook>
 
-##
+## 
 
 But who wants to look at tables when you can see colorful plots?
 
@@ -63,7 +65,7 @@ Check the countries you want to see from the list...
 
 ![](Checklist.png)
 
-## [ The App]{style="color: #243569;"}
+## [The App]{style="color: #243569;"}
 
 ...and see the trends for yourself!
 
